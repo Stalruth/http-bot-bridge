@@ -10,7 +10,7 @@ Environment variables:
 
 - `BOT_TOKEN`: The bot's token, required for Gateway access.
 - `PORT`: The port on `localhost` to send Interactions to. Defaults to 8080.
-- `PATH`: The path on `localhost` to send Interactions to. Defaults to the empty string.
+- `URL`: The path on `localhost` to send Interactions to. Defaults to the empty string.
 
 Command line parameters:
 
