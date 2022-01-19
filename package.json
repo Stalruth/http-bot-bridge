@@ -1,6 +1,6 @@
 {
   "name": "http-bot-bridge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Serve HTTP Discord Bots over the Gateway for feedback from the endpoints.",
   "main": "index.js",
   "scripts": {
