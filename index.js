@@ -44,8 +44,7 @@ function getKeys(fileName) {
 }
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  console.log(`Public key: ${Buffer.from(keys.publicKey).toString('hex')}`);
+  console.log(`Logged in as ${client.user.tag} with public key: ${Buffer.from(keys.publicKey).toString('hex')}`);
 });
 
 const keys = getKeys(KEYFILE);
@@ -54,27 +53,38 @@ client.ws.on('INTERACTION_CREATE', async(e) => {
   const timestamp = Buffer.from(`${Date.now()}`);
   const message = Buffer.from(JSON.stringify(e));
   const signature = nacl.sign.detached(Buffer.concat([timestamp, message]), keys.secretKey);
-  const serverResult = await fetch(`http://localhost:${PORT}${PATH}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Signature-Ed25519': Buffer.from(signature).toString('hex'),
-      'X-Signature-Timestamp': timestamp.toString(),
-    },
-    body: message.toString(),
-  });
+  try {
+    const serverResult = await fetch(`http://localhost:${PORT}${PATH}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Signature-Ed25519': Buffer.from(signature).toString('hex'),
+        'X-Signature-Timestamp': timestamp.toString(),
+      },
+      body: message.toString(),
+    });
 
-  const URL = `${URL_BASE}/interactions/${e.id}/${e.token}/callback`;
+    const URL = `${URL_BASE}/interactions/${e.id}/${e.token}/callback`;
+
+    const response = await serverResult.text();
+  } catch(e) {
+    console.log(e);
+    return;
+  }
 
   const discordResult = await fetch(URL, {
     method: 'POST',
-    body: await serverResult.text(),
+    body: response,
     headers: {
       'Content-Type': 'application/json',
     },
   });
 
   console.log(discordResult.status, await discordResult.text());
+
+  if(discordResult.status >= 400) {
+    console.log('Interaction Response body: ', response);
+  }
 });
 
 client.login(process.env.BOT_TOKEN);
