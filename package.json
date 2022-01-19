@@ -14,5 +14,8 @@
     "dotenv": "^10.0.0",
     "node-fetch": "^2.6.6",
     "tweetnacl": "^1.0.3"
+  },
+  "bin": {
+    "http-bot-bridge": "index.js"
   }
 }
