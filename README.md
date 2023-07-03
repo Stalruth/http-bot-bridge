@@ -22,3 +22,7 @@ Optional environment variables:
 If these are not provided they will be generated and printed to standard
 output.
 
+## License
+
+Unlicense; see UNLICENSE.md
+
