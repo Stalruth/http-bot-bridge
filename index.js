@@ -31,7 +31,7 @@ client.on('ready', () => {
 });
 
 client.ws.on('INTERACTION_CREATE', async(e) => {
-  const timestamp = Buffer.from(`${Date.now()}`);
+  const timestamp = Buffer.from(`${Date.now() / 1000}`);
   const message = Buffer.from(JSON.stringify(e));
   const signature = nacl.sign.detached(Buffer.concat([timestamp, message]), keys.secretKey);
   const URL = `${URL_BASE}/interactions/${e.id}/${e.token}/callback`;
