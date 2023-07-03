@@ -10,9 +10,9 @@
   "author": "Stuart Allan Rutherford",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^14.6.0",
+    "discord.js": "^14.11.0",
     "dotenv": "^10.0.0",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^2.6.12",
     "tweetnacl": "^1.0.3"
   },
   "bin": {
