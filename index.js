@@ -27,7 +27,10 @@ function getKeys() {
 const keys = getKeys();
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}\nSending Interactions to http://localhost:${PORT}${PATH}\nPublic key: ${Buffer.from(keys.publicKey).toString('hex')}\nSecret key: ${Buffer.from(keys.secretKey).toString('hex')}`);
+  console.log(`Logged in as ${client.user.tag}`);
+  console.log(`Sending Interactions to http://localhost:${PORT}${PATH}`);
+  console.log(`Public key: ${Buffer.from(keys.publicKey).toString('hex')}`);
+  console.log(`Secret key: ${Buffer.from(keys.secretKey).toString('hex')}`);
 });
 
 client.ws.on('INTERACTION_CREATE', async(e) => {
